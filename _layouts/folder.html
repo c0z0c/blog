@@ -1,0 +1,200 @@
+---
+layout: default
+---
+
+<div class="folder-header">
+  <h1>{{ page.title }}</h1>
+  {% if page.description %}
+  <p class="folder-description">{{ page.description }}</p>
+  {% endif %}
+</div>
+
+<div class="file-table-container">
+  <table class="file-table">
+    <thead>
+      <tr>
+        <th>📄 파일명</th>
+        <th>📅 작성일</th>
+        <th>📝 카테고리</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% assign folder_name = page.title %}
+      {% assign posts = site.pages | where: "category", folder_name %}
+      
+      <!-- 날짜가 있는 포스트와 없는 포스트를 분리 -->
+      {% assign posts_with_date = posts | where_exp: "post", "post.date != nil" | sort: "date" | reverse %}
+      {% assign posts_without_date = posts | where_exp: "post", "post.date == nil" %}
+      
+      <!-- 날짜가 있는 포스트를 먼저 표시 -->
+      {% for post in posts_with_date %}
+        {% if post.title and post.title != folder_name %}
+          <tr>
+            <td>
+              <a href="{{ post.url | prepend: site.baseurl }}" class="file-link">
+                <span class="file-icon">📄</span>
+                {{ post.title }}
+              </a>
+            </td>
+            <td>{{ post.date | date: "%Y년 %m월 %d일" }}</td>
+            <td>{{ post.category | default: "일반" }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+      
+      <!-- 날짜가 없는 포스트를 그 다음에 표시 -->
+      {% for post in posts_without_date %}
+        {% if post.title and post.title != folder_name %}
+          <tr>
+            <td>
+              <a href="{{ post.url | prepend: site.baseurl }}" class="file-link">
+                <span class="file-icon">📄</span>
+                {{ post.title }}
+              </a>
+            </td>
+            <td>최근</td>
+            <td>{{ post.category | default: "일반" }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+      
+      <!-- 포스트가 없는 경우 메시지 표시 -->
+      {% assign total_posts = posts_with_date.size | plus: posts_without_date.size %}
+      {% assign visible_posts = 0 %}
+      {% for post in posts_with_date %}
+        {% if post.title and post.title != folder_name %}
+          {% assign visible_posts = visible_posts | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+      {% for post in posts_without_date %}
+        {% if post.title and post.title != folder_name %}
+          {% assign visible_posts = visible_posts | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+      
+      {% if visible_posts == 0 %}
+        <tr>
+          <td colspan="3" style="text-align: center; color: #666; padding: 30px;">
+            📝 이 카테고리에는 아직 포스트가 없습니다.<br>
+            <small style="margin-top: 10px; display: block;">새로운 마크다운 파일을 추가해보세요!</small>
+          </td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+<!-- 포스트 개수 표시 -->
+{% if visible_posts > 0 %}
+  <div class="post-count">
+    <small>📊 총 {{ visible_posts }}개의 포스트</small>
+  </div>
+{% endif %}
+
+{% if page.show_content %}
+  <div class="folder-content">
+    {{ content }}
+  </div>
+{% endif %}
+
+<style>
+.folder-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #3498db;
+}
+
+.folder-description {
+  color: #666;
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+
+.file-table-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 20px 0;
+}
+
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.file-table thead {
+  background: #34495e;
+  color: white;
+}
+
+.file-table th {
+  padding: 15px 20px;
+  text-align: left;
+  font-weight: 600;
+  border: none;
+}
+
+.file-table td {
+  padding: 12px 20px;
+  border-bottom: 1px solid #eee;
+  border-left: none;
+  border-right: none;
+}
+
+.file-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.file-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.file-link:hover {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.file-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.folder-content {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.post-count {
+  text-align: center;
+  margin-top: 15px;
+  color: #666;
+}
+
+.post-count small {
+  background: #f8f9fa;
+  padding: 5px 15px;
+  border-radius: 15px;
+  border: 1px solid #e9ecef;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .file-table th,
+  .file-table td {
+    padding: 10px 15px;
+  }
+  
+  .file-table th:nth-child(2),
+  .file-table td:nth-child(2) {
+    display: none;
+  }
+}
+</style>

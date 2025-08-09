@@ -1,0 +1,54 @@
+# Jekyll 설정
+title: "개발자 블로그"
+description: "기술 블로그와 학습 자료 모음"
+url: "https://c0z0c.github.io"
+baseurl: "/blog"
+
+# Build 설정
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Collections 설정 (동적 폴더 인식)
+collections:
+  blog:
+    output: true
+    permalink: /:collection/:name/
+  tech_retrospective:
+    output: true
+    permalink: /:collection/:name/
+
+# 파일 처리
+include:
+  - "_*_.html"
+  - "_*_.md"
+
+# 제외할 파일들
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - ".git"
+  - ".gitignore"
+  - "helper_c0z0c_dev.py"
+
+# 기본 레이아웃 설정
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+      cache-control: "no-cache"
+      expires: 0
+      pragma: "no-cache"
+      
+# 한국어 설정
+lang: ko
+timezone: Asia/Seoul
+
+# 인코딩 설정
+encoding: utf-8

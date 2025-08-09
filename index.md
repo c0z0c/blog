@@ -38,9 +38,11 @@ pragma: no-cache
       <a href="https://github.com/c0z0c" target="_blank">
         <span class="link-icon">📱</span> GitHub 프로필
       </a>
+      <!-->
       <a href="{{ site.baseurl }}/about">
         <span class="link-icon">📖</span> About
       </a>
+      -->
     </div>
   </div>
 </div>

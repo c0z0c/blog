@@ -76,7 +76,7 @@ pragma: no-cache
 
 <div class="footer-info">
 <small>
-<strong>개발자 블로그</strong> | <a href="https://c0z0c.github.io/" target="_blank" style="color: #3498db;">🌐 메인 포트폴리오</a><br>
+<strong>개발자 블로그</strong> | <a href="https://c0z0c.github.io/" target="_blank" style="color: #3498db;">🌐 메인</a><br>
 마지막 업데이트: {{ site.time | date: "%Y년 %m월 %d일" }}
 </small>
 </div>

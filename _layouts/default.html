@@ -3,12 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <div class="nav-bar">
-                <a href="{{ site.baseurl }}/">🏠 홈</a>
-                <a href="{{ site.baseurl }}/블로그/">💭 블로그</a>
-                <a href="{{ site.baseurl }}/Tech%20Retrospective/">🔍 Tech Retrospective</a>
-                <a href="https://github.com/c0z0c" target="_blank">📱 GitHub</a>
-            </div>tle>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
     <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
     
     <!-- 캐시 방지 설정 -->
@@ -152,10 +147,9 @@
         <div class="container">
             <div class="nav-bar">
                 <a href="{{ site.baseurl }}/">🏠 홈</a>
-                <a href="{{ site.baseurl }}/멘토/">�‍🏫 멘토</a>
-                <a href="{{ site.baseurl }}/스프린트미션_완료/">✅ 완료된 미션</a>
-                <a href="{{ site.baseurl }}/스프린트미션_작업중/">🚧 작업중</a>
-                <a href="{{ site.baseurl }}/위클리페이퍼/">📰 위클리페이퍼</a>
+                <a href="{{ site.baseurl }}/블로그/">💭 블로그</a>
+                <a href="{{ site.baseurl }}/Tech%20Retrospective/">🔍 Tech Retrospective</a>
+                <a href="https://github.com/c0z0c" target="_blank">📱 GitHub</a>
             </div>
 
             {{ content }}

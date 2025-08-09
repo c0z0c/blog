@@ -15,24 +15,14 @@ pragma: no-cache
   <div class="section-card">
     <h2>📂 카테고리별 탐색</h2>
     <div class="folder-links">
-      {% assign folders = site.static_files | map: "path" | split: "/" | uniq %}
-      {% for folder in site.data.folders %}
-        <a href="{{ site.baseurl }}/{{ folder.path }}/" class="folder-link">
-          <span class="folder-icon">{{ folder.icon }}</span>
-          <span class="folder-name">{{ folder.name }}</span>
-          <span class="folder-desc">{{ folder.description }}</span>
-        </a>
-      {% endfor %}
-      
-      <!-- 실제 폴더들 동적 표시 -->
       <a href="{{ site.baseurl }}/블로그/" class="folder-link">
-        <span class="folder-icon">�</span>
+        <span class="folder-icon">💭</span>
         <span class="folder-name">블로그</span>
         <span class="folder-desc">일반 블로그 포스트</span>
       </a>
       
-      <a href="{{ site.baseurl }}/tech-retrospective/" class="folder-link">
-        <span class="folder-icon">�</span>
+      <a href="{{ site.baseurl }}/Tech%20Retrospective/" class="folder-link">
+        <span class="folder-icon">🔍</span>
         <span class="folder-name">Tech Retrospective</span>
         <span class="folder-desc">기술 회고 및 경험담</span>
       </a>

@@ -39,6 +39,9 @@ title: "포스트 제목"
 date: 2025-08-09
 category: "블로그"
 description: "포스트 설명"
+cache-control: no-cache
+expires: 0
+pragma: no-cache
 ---
 ```
 

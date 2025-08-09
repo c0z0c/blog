@@ -4,6 +4,9 @@ title: "AI 코딩을 위한 조언"
 date: 2025-08-09
 category: "블로그"
 description: ""
+cache-control: no-cache
+expires: 0
+pragma: no-cache
 ---
 
 # AI 코딩을 위한 조언
@@ -15,9 +18,8 @@ description: ""
     - 오타나 불완전한 논리가 있어도 AI와 함께 다듬으면 됩니다.
 - 🚀 빠른 1차 완성 예제
     
-    python
-    
-    `# main.py
+    ```python
+    # main.py
     
     def fetch_data(source):
         # TODO: 데이터 소스에 맞게 요청 로직 구현
@@ -34,7 +36,8 @@ description: ""
     if __name__ == "__main__":
         raw = fetch_data("https://api.example.com/data")
         processed = process_data(raw)
-        save_results(processed, "output.json")`
+        save_results(processed, "output.json")
+    ```
     
     1차적으로 함수 시그니처와 전체 흐름을 잡아두고, 자세한 로직은 TODO로 남깁니다.
     
@@ -45,13 +48,15 @@ description: ""
     - 발생한 에러 전체를 복사·붙여넣기 하세요.
 - 🔎 원인 분석 & 해결책 제시 예제
     
-    python
-    
-    `# 에러 발생 코드
+    ```python
+    # 에러 발생 코드
     nums = [1, 2, 3]
-    print(nums[5])`
+    print(nums[5])
+    ```
     
-    `IndexError: list index out of range`
+    ```
+    IndexError: list index out of range
+    ```
     
     → AI에 “위 IndexError를 해결하려면 어떻게 수정해야 하나요?”라고 요청
     

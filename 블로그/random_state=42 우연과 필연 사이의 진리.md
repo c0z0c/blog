@@ -4,6 +4,9 @@ title: "random_state=42 우연과 필연 사이의 진리"
 date: 2025-08-09
 category: "블로그"
 description: ""
+cache-control: no-cache
+expires: 0
+pragma: no-cache
 ---
 
 # random_state=42 우연과 필연 사이의 진리

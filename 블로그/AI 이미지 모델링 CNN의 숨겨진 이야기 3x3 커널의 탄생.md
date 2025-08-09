@@ -4,9 +4,10 @@ title: "AI 이미지 모델링 CNN의 숨겨진 이야기 3x3 커널의 탄생"
 date: 2025-08-09
 category: "블로그"
 description: ""
+cache-control: no-cache
+expires: 0
+pragma: no-cache
 ---
-
-# AI 이미지 모델링 CNN의 숨겨진 이야기: 3x3 커널의 탄생
 
 # AI 이미지 모델링 CNN의 숨겨진 이야기: 3x3 커널의 탄생
 

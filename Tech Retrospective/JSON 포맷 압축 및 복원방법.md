@@ -4,6 +4,9 @@ title: "JSON 포맷 압축 및 복원방법"
 date: 2025-08-09
 category: "Tech Retrospective"
 description: ""
+cache-control: no-cache
+expires: 0
+pragma: no-cache
 ---
 
 # JSON 포맷 압축 및 복원방법

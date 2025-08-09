@@ -4,6 +4,9 @@ title: "AI Tool을 사용하는 초보개발자를위한 조언 # 1"
 date: 2025-08-09
 category: "블로그"
 description: ""
+cache-control: no-cache
+expires: 0
+pragma: no-cache
 ---
 
 # AI Tool을 사용하는 초보개발자를위한 조언 # 1
@@ -18,19 +21,17 @@ description: ""
 
 예)
 
-```markdown
-
+```python
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=5)
 
 lasso_model = Lasso(alpha=1, max_iter=2000, normalize=True)
-lasso_mode.fit(X_train, y_train)
+lasso_mode.fit(X_train, y_train)  # 🚨 오타: lasso_mode -> lasso_model
 
 y_train_predict = lasso_model.predict(X_train)
 y_test_predict = lasso_model.predict(X_test)
-
 ```
 
-```markdown
+```
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
 <ipython-input-1-94f22914643a> in <module>

@@ -54,12 +54,19 @@ pragma: no-cache
 
 ## 📋 최근 업데이트
 
-{% assign all_posts = site.pages | where_exp: "page", "page.category != nil and page.title != page.category" | sort: "date" | reverse | limit: 5 %}
+{% assign all_posts = site.pages %}
+{% assign filtered_posts = "" | split: "" %}
+{% for page in all_posts %}
+  {% if page.category and page.title != page.category %}
+    {% assign filtered_posts = filtered_posts | push: page %}
+  {% endif %}
+{% endfor %}
+{% assign sorted_posts = filtered_posts | sort: "date" | reverse %}
 
 <div class="recent-posts">
-  {% for post in all_posts %}
+  {% for post in sorted_posts limit: 5 %}
     <div class="recent-post-item">
-      <span class="post-date">{{ post.date | date: "%Y년 %m월 %d일" }}</span>
+      <span class="post-date">{{ post.date | date: "%Y년 %m월 %d일" | default: "최근" }}</span>
       <a href="{{ post.url | prepend: site.baseurl }}" class="post-title">{{ post.title }}</a>
       <span class="post-category">{{ post.category }}</span>
     </div>

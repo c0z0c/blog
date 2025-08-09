@@ -20,14 +20,24 @@ layout: default
     </thead>
     <tbody>
       {% assign folder_name = page.title %}
-      {% assign posts = site.pages | where: "category", folder_name %}
+      {% assign all_posts = site.pages | where: "category", folder_name %}
       
       <!-- 날짜가 있는 포스트와 없는 포스트를 분리 -->
-      {% assign posts_with_date = posts | where_exp: "post", "post.date != nil" | sort: "date" | reverse %}
-      {% assign posts_without_date = posts | where_exp: "post", "post.date == nil" %}
+      {% assign posts_with_date = "" | split: "" %}
+      {% assign posts_without_date = "" | split: "" %}
+      
+      {% for post in all_posts %}
+        {% if post.date %}
+          {% assign posts_with_date = posts_with_date | push: post %}
+        {% else %}
+          {% assign posts_without_date = posts_without_date | push: post %}
+        {% endif %}
+      {% endfor %}
+      
+      {% assign sorted_posts_with_date = posts_with_date | sort: "date" | reverse %}
       
       <!-- 날짜가 있는 포스트를 먼저 표시 -->
-      {% for post in posts_with_date %}
+      {% for post in sorted_posts_with_date %}
         {% if post.title and post.title != folder_name %}
           <tr>
             <td>
@@ -59,9 +69,8 @@ layout: default
       {% endfor %}
       
       <!-- 포스트가 없는 경우 메시지 표시 -->
-      {% assign total_posts = posts_with_date.size | plus: posts_without_date.size %}
       {% assign visible_posts = 0 %}
-      {% for post in posts_with_date %}
+      {% for post in sorted_posts_with_date %}
         {% if post.title and post.title != folder_name %}
           {% assign visible_posts = visible_posts | plus: 1 %}
         {% endif %}

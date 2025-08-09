@@ -32,6 +32,9 @@ pragma: no-cache
   <div class="section-card">
     <h2>🔗 빠른 링크</h2>
     <div class="quick-links">
+      <a href="https://c0z0c.github.io/" target="_blank">
+        <span class="link-icon">🏠</span> 메인 포트폴리오
+      </a>
       <a href="https://github.com/c0z0c" target="_blank">
         <span class="link-icon">📱</span> GitHub 프로필
       </a>
@@ -71,7 +74,7 @@ pragma: no-cache
 
 <div class="footer-info">
 <small>
-<strong>개발자 블로그</strong><br>
+<strong>개발자 블로그</strong> | <a href="https://c0z0c.github.io/" target="_blank" style="color: #3498db;">🌐 메인 포트폴리오</a><br>
 마지막 업데이트: {{ site.time | date: "%Y년 %m월 %d일" }}
 </small>
 </div>

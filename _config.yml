@@ -11,20 +11,6 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-# Collections 설정 (동적 폴더 인식)
-collections:
-  blog:
-    output: true
-    permalink: /:collection/:name/
-  tech_retrospective:
-    output: true
-    permalink: /:collection/:name/
-
-# 파일 처리
-include:
-  - "_*_.html"
-  - "_*_.md"
-
 # 제외할 파일들
 exclude:
   - README.md
@@ -33,7 +19,7 @@ exclude:
   - vendor/
   - ".git"
   - ".gitignore"
-  - "helper_c0z0c_dev.py"
+  - "setup_blog.py"
 
 # 기본 레이아웃 설정
 defaults:
@@ -42,9 +28,6 @@ defaults:
       type: "pages"
     values:
       layout: "default"
-      cache-control: "no-cache"
-      expires: 0
-      pragma: "no-cache"
       
 # 한국어 설정
 lang: ko

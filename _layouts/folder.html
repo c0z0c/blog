@@ -45,11 +45,166 @@ pragma: no-cache
 
 <div class="file-table-container">
   <div class="table-header">
-    <h3>📋 포스트 목록</h3>
+    <h3>📋 파일 및 포스트 목록</h3>
     <div class="view-options">
       <button class="view-btn active" onclick="toggleView('table')">📊 테이블</button>
       <button class="view-btn" onclick="toggleView('grid')">🎯 카드</button>
+      <button class="view-btn" onclick="toggleView('files')">📁 파일</button>
     </div>
+  </div>
+  
+  <!-- 파일 그리드 뷰 -->
+  <div id="files-view" class="view-content">
+    <div class="file-grid">
+      {% assign current_path = page.folder_path %}
+      {% assign static_files = site.static_files | where_exp: "item", "item.path contains current_path" %}
+      {% assign markdown_pages = site.pages | where_exp: "page", "page.path contains page.title" %}
+      
+      {% assign all_files = "" | split: "" %}
+      
+      <!-- Add static files -->
+      {% for file in static_files %}
+        {% assign relative_path = file.path | remove: current_path %}
+        {% unless relative_path contains "/" or file.name == "index.md" %}
+          {% assign all_files = all_files | push: file %}
+        {% endunless %}
+      {% endfor %}
+      
+      <!-- Add markdown pages -->
+      {% for page_item in markdown_pages %}
+        {% assign relative_path = page_item.path | remove_first: page.title | remove_first: "/" %}
+        {% unless relative_path contains "/" or page_item.name == "index.md" %}
+          {% assign all_files = all_files | push: page_item %}
+        {% endunless %}
+      {% endfor %}
+      
+      {% assign sorted_files = all_files | sort: "name" %}
+      
+      {% if sorted_files.size > 0 %}
+        {% for file in sorted_files %}
+          {% assign file_ext = file.extname | downcase %}
+          {% if file_ext == "" and file.path %}
+            {% assign file_name = file.path | split: "/" | last %}
+            {% assign file_ext = file_name | split: "." | last | downcase %}
+            {% assign file_ext = "." | append: file_ext %}
+          {% endif %}
+          {% assign file_icon = "📄" %}
+          {% assign file_type = "파일" %}
+          
+          {% if file_ext == ".md" %}
+            {% assign file_icon = "📝" %}
+            {% assign file_type = "Markdown 문서" %}
+          {% elsif file_ext == ".py" %}
+            {% assign file_icon = "🐍" %}
+            {% assign file_type = "Python 스크립트" %}
+          {% elsif file_ext == ".json" %}
+            {% assign file_icon = "⚙️" %}
+            {% assign file_type = "JSON 설정" %}
+          {% elsif file_ext == ".html" %}
+            {% assign file_icon = "🌐" %}
+            {% assign file_type = "HTML 파일" %}
+          {% elsif file_ext == ".css" %}
+            {% assign file_icon = "🎨" %}
+            {% assign file_type = "CSS 스타일" %}
+          {% elsif file_ext == ".js" %}
+            {% assign file_icon = "⚡" %}
+            {% assign file_type = "JavaScript" %}
+          {% elsif file_ext == ".pdf" %}
+            {% assign file_icon = "📄" %}
+            {% assign file_type = "PDF 문서" %}
+          {% elsif file_ext == ".docx" %}
+            {% assign file_icon = "📄" %}
+            {% assign file_type = "Word 문서" %}
+          {% elsif file_ext == ".txt" %}
+            {% assign file_icon = "📝" %}
+            {% assign file_type = "텍스트 파일" %}
+          {% endif %}
+          
+          <div class="file-item">
+            <div class="file-icon">{{ file_icon }}</div>
+            <div class="file-info">
+              <h4 class="file-name">{% if file.name %}{{ file.name }}{% else %}{{ file.path | split: "/" | last }}{% endif %}</h4>
+              <p class="file-type">{{ file_type }}</p>
+              <p class="file-size">{% if file.modified_time %}{{ file.modified_time | date: "%Y-%m-%d" }}{% else %}{{ file.date | date: "%Y-%m-%d" }}{% endif %}</p>
+            </div>
+            <div class="file-actions">
+              {% if file_ext == ".md" and file.name != "index.md" %}
+                {% assign file_name_clean = file.name %}
+                {% if file_name_clean == nil %}
+                  {% assign file_name_clean = file.path | split: "/" | last %}
+                {% endif %}
+                {% assign md_name_clean = file_name_clean | remove: '.md' %}
+                {% assign folder_path_encoded = page.title | url_encode %}
+                <a href="https://c0z0c.github.io/blog/{{ folder_path_encoded }}/{{ md_name_clean }}" class="file-action" title="렌더링된 페이지 보기" target="_blank">🌐</a>
+                <a href="https://github.com/c0z0c/c0z0c.github.io/blob/main/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="GitHub에서 원본 보기" target="_blank">📖</a>
+              {% elsif file_ext == ".html" %}
+                {% assign file_name_clean = file.name %}
+                {% if file_name_clean == nil %}
+                  {% assign file_name_clean = file.path | split: "/" | last %}
+                {% endif %}
+                <a href="https://c0z0c.github.io/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="렌더링된 페이지 보기" target="_blank">🌐</a>
+                <a href="https://github.com/c0z0c/c0z0c.github.io/blob/main/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="GitHub에서 원본 보기" target="_blank">📖</a>
+              {% elsif file_ext == ".pdf" %}
+                {% assign file_name_clean = file.name %}
+                {% if file_name_clean == nil %}
+                  {% assign file_name_clean = file.path | split: "/" | last %}
+                {% endif %}
+                <a href="https://github.com/c0z0c/c0z0c.github.io/blob/main/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>
+                <a href="https://docs.google.com/viewer?url=https://github.com/c0z0c/c0z0c.github.io/raw/main/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="Google Docs Viewer에서 열기" target="_blank">👁️</a>
+              {% elsif file_ext == ".docx" %}
+                {% assign file_name_clean = file.name %}
+                {% if file_name_clean == nil %}
+                  {% assign file_name_clean = file.path | split: "/" | last %}
+                {% endif %}
+                <a href="https://github.com/c0z0c/c0z0c.github.io/blob/main/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>
+                <a href="https://docs.google.com/viewer?url=https://github.com/c0z0c/c0z0c.github.io/raw/main/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="Google Docs에서 열기" target="_blank">📝</a>
+              {% elsif file_ext == ".py" %}
+                {% assign file_name_clean = file.name %}
+                {% if file_name_clean == nil %}
+                  {% assign file_name_clean = file.path | split: "/" | last %}
+                {% endif %}
+                <a href="https://github.com/c0z0c/c0z0c.github.io/blob/main/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>
+                <a href="https://github.com/c0z0c/c0z0c.github.io/raw/main/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="원본 다운로드" target="_blank">⬇️</a>
+              {% else %}
+                {% assign file_name_clean = file.name %}
+                {% if file_name_clean == nil %}
+                  {% assign file_name_clean = file.path | split: "/" | last %}
+                {% endif %}
+                <a href="https://github.com/c0z0c/c0z0c.github.io/blob/main/blog/{{ page.title }}/{{ file_name_clean }}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-message">
+          <span class="empty-icon">📄</span>
+          <h3>파일이 없습니다</h3>
+          <p>현재 이 위치에는 파일이 없습니다.</p>
+        </div>
+      {% endif %}
+    </div>
+    
+    <!-- Debugging Section for Files -->
+    <details style="margin: 20px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+    <summary style="cursor: pointer; font-weight: bold;">🔍 파일 디버깅 정보</summary>
+    <h4>Current Path: {{ current_path }}</h4>
+    <h4>Static Files:</h4>
+    <ul>
+    {% for file in site.static_files %}
+      {% if file.path contains current_path %}
+        <li>{{ file.path }} ({{ file.name }}) - {{ file.extname }}</li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+    <h4>Pages containing "{{ page.title }}":</h4>
+    <ul>
+    {% for page_item in site.pages %}
+      {% if page_item.path contains page.title %}
+        <li>{{ page_item.path }} ({{ page_item.name }}) - {{ page_item.url }}</li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+    </details>
   </div>
   
   <div id="table-view" class="view-content active">
@@ -236,19 +391,26 @@ pragma: no-cache
 function toggleView(viewType) {
   const tableView = document.getElementById('table-view');
   const gridView = document.getElementById('grid-view');
+  const filesView = document.getElementById('files-view');
   const buttons = document.querySelectorAll('.view-btn');
   
   // 모든 버튼에서 active 클래스 제거
   buttons.forEach(btn => btn.classList.remove('active'));
   
+  // 모든 뷰 숨기기
+  tableView.classList.remove('active');
+  gridView.classList.remove('active');
+  filesView.classList.remove('active');
+  
   if (viewType === 'table') {
     tableView.classList.add('active');
-    gridView.classList.remove('active');
     document.querySelector('.view-btn[onclick="toggleView(\'table\')"]').classList.add('active');
-  } else {
-    tableView.classList.remove('active');
+  } else if (viewType === 'grid') {
     gridView.classList.add('active');
     document.querySelector('.view-btn[onclick="toggleView(\'grid\')"]').classList.add('active');
+  } else if (viewType === 'files') {
+    filesView.classList.add('active');
+    document.querySelector('.view-btn[onclick="toggleView(\'files\')"]').classList.add('active');
   }
 }
 
@@ -650,6 +812,10 @@ document.addEventListener('DOMContentLoaded', function() {
   .date-cell {
     width: auto;
   }
+  
+  .file-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -661,5 +827,115 @@ document.addEventListener('DOMContentLoaded', function() {
   .post-info {
     min-width: 0;
   }
+}
+
+/* File Grid Styles */
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 25px;
+}
+
+.file-item {
+  background: white;
+  border: 1px solid #e1e8ed;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.file-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border-color: #007acc;
+}
+
+.file-icon {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.file-info {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.file-name {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  word-break: break-word;
+}
+
+.file-type {
+  margin: 0 0 5px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.file-size {
+  margin: 0;
+  color: #999;
+  font-size: 12px;
+}
+
+.file-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.file-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  color: #495057;
+}
+
+.file-action:hover {
+  background: #007acc;
+  color: white;
+  border-color: #007acc;
+  transform: scale(1.1);
+  text-decoration: none;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  grid-column: 1 / -1;
+  background: #fafbfc;
+  border-radius: 12px;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.empty-message h3 {
+  margin: 0 0 10px 0;
+  color: #999;
+}
+
+.empty-message p {
+  margin: 0;
+  color: #bbb;
 }
 </style>

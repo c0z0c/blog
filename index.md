@@ -35,7 +35,7 @@ pragma: no-cache
       <a href="https://c0z0c.github.io/" target="_blank">
         <span class="link-icon">🏠</span> 메인
       </a>
-      <a href="https://github.com/c0z0c" target="_blank">
+      <a href="https://github.com/c0z0c/blog" target="_blank">
         <span class="link-icon">📱</span> GitHub 프로필
       </a>
       <!--

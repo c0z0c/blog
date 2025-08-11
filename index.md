@@ -20,28 +20,20 @@ pragma: no-cache
       {% assign path_parts = file.path | split: '/' %}
       {% if path_parts.size > 1 %}
         {% assign folder = path_parts[0] %}
-        {% if folder != '' and folder != 'assets' and folder != '.' and folder != '..' and folder != '_layouts' and folder != '_site' and folder != '_config.yml' and folder != 'README-1.md' and folder != 'feed.xml' and folder != 'sitemap.xml' and folder != 'robots.txt' and folder != 'index.md' and folder != 'index.html' and folder != 'Gemfile' and folder != 'Gemfile.lock' and folder != '.git' and folder != '.github' and folder contains '.' == false %}
-          {% unless folder_set contains folder %}
-            <li>
-              <a href="{{ site.baseurl }}/{{ folder }}/">{{ folder }}</a>
-            </li>
-            {% assign folder_set = folder_set | push: folder %}
-          {% endunless %}
-        {% endif %}
+        {% unless folder_set contains folder or folder == '' or folder contains '.' %}
+          <li><a href="{{ site.baseurl }}/{{ folder }}/">{{ folder }}</a></li>
+          {% assign folder_set = folder_set | push: folder %}
+        {% endunless %}
       {% endif %}
     {% endfor %}
     {% for page in site.pages %}
       {% assign path_parts = page.path | split: '/' %}
       {% if path_parts.size > 1 %}
         {% assign folder = path_parts[0] %}
-        {% if folder != '' and folder != 'assets' and folder != '.' and folder != '..' and folder != '_layouts' and folder != '_site' and folder != '_config.yml' and folder != 'README-1.md' and folder != 'feed.xml' and folder != 'sitemap.xml' and folder != 'robots.txt' and folder != 'index.md' and folder != 'index.html' and folder != 'Gemfile' and folder != 'Gemfile.lock' and folder != '.git' and folder != '.github' and folder contains '.' == false %}
-          {% unless folder_set contains folder %}
-            <li>
-              <a href="{{ site.baseurl }}/{{ folder }}/">{{ folder }}</a>
-            </li>
-            {% assign folder_set = folder_set | push: folder %}
-          {% endunless %}
-        {% endif %}
+        {% unless folder_set contains folder or folder == '' or folder contains '.' %}
+          <li><a href="{{ site.baseurl }}/{{ folder }}/">{{ folder }}</a></li>
+          {% assign folder_set = folder_set | push: folder %}
+        {% endunless %}
       {% endif %}
     {% endfor %}
   </ul>

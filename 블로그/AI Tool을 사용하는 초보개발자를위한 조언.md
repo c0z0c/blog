@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "AI Tool을 사용하는 초보개발자를위한 조언 # 1"
+title: "AI Tool을 사용하는 초보개발자를위한 조언"
 date: 2025-08-09
 category: "블로그"
 description: ""

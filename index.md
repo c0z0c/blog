@@ -7,43 +7,33 @@ expires: 0
 pragma: no-cache
 ---
 
-
 # 📚 개발자 블로그
 
-기술적 학습과 경험을 정리하는 공간입니다.
-
-<div>
-  <h2>📁 1단계 하위 폴더 목록 (자동 추출)</h2>
-  <ul>
-    {% assign folder_set = "" | split: "" %}
-    {% for file in site.static_files %}
-      {% assign path_parts = file.path | split: '/' %}
-      {% if path_parts.size > 1 %}
-        {% assign folder = path_parts[0] %}
-        {% unless folder_set contains folder or folder == '' or folder contains '.' %}
-          <li><a href="{{ site.baseurl }}/{{ folder }}/">{{ folder }}</a></li>
-          {% assign folder_set = folder_set | push: folder %}
-        {% endunless %}
-      {% endif %}
-    {% endfor %}
-    {% for page in site.pages %}
-      {% assign path_parts = page.path | split: '/' %}
-      {% if path_parts.size > 1 %}
-        {% assign folder = path_parts[0] %}
-        {% unless folder_set contains folder or folder == '' or folder contains '.' %}
-          <li><a href="{{ site.baseurl }}/{{ folder }}/">{{ folder }}</a></li>
-          {% assign folder_set = folder_set | push: folder %}
-        {% endunless %}
-      {% endif %}
-    {% endfor %}
-  </ul>
-  <!-- 디버깅: 추출된 폴더 목록 -->
-  <!-- {{ folder_set | join: ', ' }} -->
-</div>
+{% assign folder_set = "" | split: "" %}
+{% for file in site.static_files %}
+  {% assign path_parts = file.path | split: '/' %}
+  {% if path_parts.size > 1 %}
+    {% assign folder = path_parts[0] %}
+    {% unless folder_set contains folder or folder == '' or folder contains '.' %}
+      {% assign folder_set = folder_set | push: folder %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+{% for page in site.pages %}
+  {% assign path_parts = page.path | split: '/' %}
+  {% if path_parts.size > 1 %}
+    {% assign folder = path_parts[0] %}
+    {% unless folder_set contains folder or folder == '' or folder contains '.' %}
+      {% assign folder_set = folder_set | push: folder %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+<!-- 디버깅: 추출된 폴더 목록 -->
+<!-- {{ folder_set | join: ', ' }} -->
 
 <div class="nav-sections">
   <div class="section-card">
-    <h2>📂 카테고리별 탐색</h2>
+    <h2>📂 카테고리</h2>
     <div class="folder-links">
       {% assign folder_set = "" | split: "" %}
       {% for file in site.static_files %}

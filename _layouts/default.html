@@ -441,13 +441,32 @@
 <body>
     <div class="main-wrapper">
         <div class="container">
-            <div class="nav-bar">
-                <a href="https://c0z0c.github.io/" target="_blank">🌐 메인</a>
-                <a href="{{ site.baseurl }}/">🏠 홈</a>
-                <a href="{{ site.baseurl }}/블로그/">💭 블로그</a>
-                <a href="{{ site.baseurl }}/Tech%20Retrospective/">🔍 Tech Retrospective</a>
-                <a href="https://github.com/c0z0c" target="_blank">📱 GitHub</a>
-            </div>
+                        <div class="nav-bar">
+                                <a href="https://c0z0c.github.io/" target="_blank">🌐 메인</a>
+                                <a href="{{ site.baseurl }}/">🏠 홈</a>
+                                <a href="https://github.com/c0z0c" target="_blank">📱 GitHub</a>
+                                {% assign folder_set = "" | split: "" %}
+                                {% for file in site.static_files %}
+                                    {% assign path_parts = file.path | split: '/' %}
+                                    {% if path_parts.size > 1 %}
+                                        {% assign folder = path_parts[0] %}
+                                        {% unless folder_set contains folder or folder == '' or folder contains '.' or folder == 'assets' %}
+                                            <a href="{{ site.baseurl }}/{{ folder }}/">{{ folder }}</a>
+                                            {% assign folder_set = folder_set | push: folder %}
+                                        {% endunless %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% for page in site.pages %}
+                                    {% assign path_parts = page.path | split: '/' %}
+                                    {% if path_parts.size > 1 %}
+                                        {% assign folder = path_parts[0] %}
+                                        {% unless folder_set contains folder or folder == '' or folder contains '.' or folder == 'assets' %}
+                                            <a href="{{ site.baseurl }}/{{ folder }}/">{{ folder }}</a>
+                                            {% assign folder_set = folder_set | push: folder %}
+                                        {% endunless %}
+                                    {% endif %}
+                                {% endfor %}
+                        </div>
 
             {{ content }}
         </div>

@@ -15,17 +15,20 @@ pragma: no-cache
   <div class="section-card">
     <h2>📂 카테고리별 탐색</h2>
     <div class="folder-links">
-      <a href="{{ site.baseurl }}/블로그/" class="folder-link">
-        <span class="folder-icon">💭</span>
-        <span class="folder-name">블로그</span>
-        <span class="folder-desc">일반 블로그 포스트</span>
-      </a>
-      
-      <a href="{{ site.baseurl }}/Tech%20Retrospective/" class="folder-link">
-        <span class="folder-icon">🔍</span>
-        <span class="folder-name">Tech Retrospective</span>
-        <span class="folder-desc">기술 회고 및 경험담</span>
-      </a>
+      {% assign folder_set = "" | split: "" %}
+      {% for page in site.pages %}
+        {% assign path_parts = page.path | split: '/' %}
+        {% if path_parts.size == 3 and path_parts[0] == 'blog' and path_parts[2] == 'index.md' %}
+          {% assign folder = path_parts[1] %}
+          {% unless folder_set contains folder %}
+            <a href="{{ site.baseurl }}/{{ folder }}/" class="folder-link">
+              <span class="folder-icon">�</span>
+              <span class="folder-name">{{ folder }}</span>
+            </a>
+            {% assign folder_set = folder_set | push: folder %}
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 
@@ -38,11 +41,6 @@ pragma: no-cache
       <a href="https://github.com/c0z0c/blog" target="_blank">
         <span class="link-icon">📱</span> GitHub 프로필
       </a>
-      <!--
-      <a href="{{ site.baseurl }}/about">
-        <span class="link-icon">📖</span> About
-      </a>
-      -->
     </div>
   </div>
 </div>

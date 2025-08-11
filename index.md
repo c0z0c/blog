@@ -16,6 +16,18 @@ pragma: no-cache
   <h2>📁 1단계 하위 폴더 목록 (자동 추출)</h2>
   <ul>
     {% assign folder_set = "" | split: "" %}
+    {% for file in site.static_files %}
+      {% assign path_parts = file.path | split: '/' %}
+      {% if path_parts.size > 2 and path_parts[0] == 'blog' %}
+        {% assign folder = path_parts[1] %}
+        {% unless folder_set contains folder %}
+          <li>
+            <a href="{{ site.baseurl }}/{{ folder }}/">{{ folder }}</a>
+          </li>
+          {% assign folder_set = folder_set | push: folder %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
     {% for page in site.pages %}
       {% assign path_parts = page.path | split: '/' %}
       {% if path_parts.size > 2 and path_parts[0] == 'blog' %}
@@ -32,6 +44,9 @@ pragma: no-cache
   <!-- 디버깅: 추출된 폴더 목록 -->
   <pre>
     folder_set: {{ folder_set | join: ', ' }}
+    {% for file in site.static_files %}
+      path: {{ file.path }}
+    {% endfor %}
     {% for page in site.pages %}
       path: {{ page.path }}
     {% endfor %}

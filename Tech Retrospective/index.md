@@ -40,8 +40,11 @@ pragma: no-cache
   <!-- Debug: Show what files are being processed -->
   <!-- Total files found: {{ all_files.size }} -->
 
-  <!-- 파일을 최근 수정/생성일 순으로 내림차순 정렬 -->
-  {% assign sorted_files = all_files | sort: "modified_time" %}
+  <!-- 파일을 최근 날짜 순으로 내림차순 정렬 (블로그 포스트의 date front matter 우선, 없으면 modified_time 사용) -->
+  {% assign sorted_files = all_files | sort: "date" | reverse %}
+  {% if sorted_files.size == 0 or sorted_files[0].date == nil %}
+    {% assign sorted_files = all_files | sort: "modified_time" | reverse %}
+  {% endif %}
 
   {% if sorted_files.size > 0 %}
     {% for file in sorted_files %}

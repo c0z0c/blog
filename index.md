@@ -87,7 +87,7 @@ pragma: no-cache
     {% assign filtered_posts = filtered_posts | push: page %}
   {% endif %}
 {% endfor %}
-{% assign sorted_posts = filtered_posts | sort: "date" %}
+{% assign sorted_posts = filtered_posts | sort: "date" | reverse %}
 
 <div class="recent-posts">
   {% for post in sorted_posts limit: 5 %}

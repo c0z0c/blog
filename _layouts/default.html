@@ -437,6 +437,27 @@
             }
         }
     </style>
+    
+    <!-- Mermaid 다이어그램 지원 -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                darkMode: true,
+                primaryColor: '#87ceeb',
+                primaryTextColor: '#e0e0e0',
+                primaryBorderColor: '#555',
+                lineColor: '#87ceeb',
+                sectionBkgColor: '#2d2d2d',
+                altSectionBkgColor: '#404040',
+                gridColor: '#555',
+                secondaryColor: '#404040',
+                tertiaryColor: '#2d2d2d'
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="main-wrapper">

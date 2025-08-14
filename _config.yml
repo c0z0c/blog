@@ -11,6 +11,17 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
+# kramdown 설정
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+
 # 제외할 파일들
 exclude:
   - README.md

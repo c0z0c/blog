@@ -2,6 +2,7 @@
 layout: default
 title: Tech Retrospective - 보관함
 description: Tech Retrospective 자료들
+author: "김명환"
 cache-control: no-cache
 expires: 0
 pragma: no-cache

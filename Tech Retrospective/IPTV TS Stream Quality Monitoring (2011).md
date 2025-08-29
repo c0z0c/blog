@@ -4,6 +4,7 @@ title: "IPTV TS Stream Quality Monitoring (2011)"
 date: 2025-08-09
 category: "Tech Retrospective"
 description: ""
+author: "김명환"
 cache-control: no-cache
 expires: 0
 pragma: no-cache

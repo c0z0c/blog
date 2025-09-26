@@ -71,7 +71,7 @@ curFiles.sort((a, b) => {
 curFiles.forEach(f => {
 /*
       "name": "Grad-CAM_정상.png",
-      "path": "/스프린트미션_완료/image/06_4팀_김명환/Grad-CAM_정상.png",
+      "path": "/블로그/image/06_4팀_김명환/Grad-CAM_정상.png",
       "extname": ".png",
       "modified_time": "2025-08-24 12:11:59 +0900",
       "basename": "Grad-CAM_정상",
@@ -120,20 +120,20 @@ curFiles.forEach(f => {
     
     if (fileExt === '.md' && fileName !== 'index.md') {
       const mdName = fileName.replace('.md', '');
-      actions += `<a href="https://c0z0c.github.io/sprint_mission/스프린트미션_완료/${mdName}" class="file-action" title="렌더링된 페이지 보기" target="_blank">🌐</a>`;
-      actions += `<a href="https://github.com/c0z0c/sprint_mission/blob/master/스프린트미션_완료/${fileName}" class="file-action" title="GitHub에서 원본 보기" target="_blank">📖</a>`;
+      actions += `<a href="https://c0z0c.github.io/blog/블로그/${mdName}" class="file-action" title="렌더링된 페이지 보기" target="_blank">🌐</a>`;
+      actions += `<a href="https://github.com/c0z0c/blog/blob/master/블로그/${fileName}" class="file-action" title="GitHub에서 원본 보기" target="_blank">📖</a>`;
     } else if (fileExt === '.ipynb') {
-      actions += `<a href="https://github.com/c0z0c/sprint_mission/blob/master/스프린트미션_완료/${fileName}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>`;
-      actions += `<a href="https://colab.research.google.com/github/c0z0c/sprint_mission/blob/master/스프린트미션_완료/${fileName}" class="file-action" title="Colab에서 열기" target="_blank">🚀</a>`;
+      actions += `<a href="https://github.com/c0z0c/blog/blob/master/블로그/${fileName}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>`;
+      actions += `<a href="https://colab.research.google.com/github/c0z0c/blog/blob/master/블로그/${fileName}" class="file-action" title="Colab에서 열기" target="_blank">🚀</a>`;
     } else if (fileExt === '.pdf') {
-      actions += `<a href="https://github.com/c0z0c/sprint_mission/blob/master/스프린트미션_완료/${fileName}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>`;
-      actions += `<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/c0z0c/sprint_mission/master/스프린트미션_완료/${fileName}" class="file-action" title="PDF 뷰어로 열기" target="_blank">📄</a>`;
+      actions += `<a href="https://github.com/c0z0c/blog/blob/master/블로그/${fileName}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>`;
+      actions += `<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/c0z0c/blog/master/블로그/${fileName}" class="file-action" title="PDF 뷰어로 열기" target="_blank">📄</a>`;
     } else if (fileExt === '.docx') {
-      actions += `<a href="https://github.com/c0z0c/sprint_mission/blob/master/스프린트미션_완료/${fileName}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>`;
-      actions += `<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/c0z0c/sprint_mission/master/스프린트미션_완료/${fileName}" class="file-action" title="Google에서 열기" target="_blank">📊</a>`;
+      actions += `<a href="https://github.com/c0z0c/blog/blob/master/블로그/${fileName}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>`;
+      actions += `<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/c0z0c/blog/master/블로그/${fileName}" class="file-action" title="Google에서 열기" target="_blank">📊</a>`;
     } else if (fileExt === '.html') {
-      actions += `<a href="https://c0z0c.github.io/sprint_mission/스프린트미션_완료/${fileName}" class="file-action" title="웹페이지로 보기" target="_blank">🌐</a>`;
-      actions += `<a href="https://github.com/c0z0c/sprint_mission/blob/master/스프린트미션_완료/${fileName}" class="file-action" title="GitHub에서 원본 보기" target="_blank">📖</a>`;
+      actions += `<a href="https://c0z0c.github.io/blog/블로그/${fileName}" class="file-action" title="웹페이지로 보기" target="_blank">🌐</a>`;
+      actions += `<a href="https://github.com/c0z0c/blog/blob/master/블로그/${fileName}" class="file-action" title="GitHub에서 원본 보기" target="_blank">📖</a>`;
     } else {
       actions += `<a href="${file.path}" class="file-action" title="파일 열기">📖</a>`;
     }

@@ -1,3 +1,15 @@
+---
+layout: default
+title: "YOLO 모델 검토 보고서"
+description: "YOLO 모델 검토 보고서"
+author: "김명환"
+date: 2025-08-12
+category: "검토"
+cache-control: no-cache
+expires: 0
+pragma: no-cache
+---
+
 
 > **작성자:** 김명환  
 > **작성일:** 2025-08-12

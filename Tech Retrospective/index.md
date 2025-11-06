@@ -2,161 +2,113 @@
 layout: default
 title: Tech Retrospective - 보관함
 description: Tech Retrospective 자료들
-author: "김명환"
+date: 2025-08-20
 cache-control: no-cache
 expires: 0
 pragma: no-cache
 ---
 
-# ✅ Tech Retrospective
+# 📰 Tech Retrospective
 
-{% assign current_folder = "Tech Retrospective/" %}
-{% assign unique_folders = "" | split: "" %}
+<script>
+
+// 폴더 정보 가져오기 함수
+function getFolderInfo(folderName) {
+    folderName = (folderName || '').toString().replace(/^\/+|\/+$/g, '');
+    // 폴더명에 따른 아이콘과 설명 (가나다순 정렬)
+    const folderMappings = {
+        '감성데이타': { icon: '📊', desc: 'AI HUB 감성 데이타셋' },
+        '경구약제 이미지 데이터(데이터 설명서, 경구약제 리스트)': { icon: '📊', desc: '데이터 설명서' },
+        '경구약제이미지데이터': { icon: '💊', desc: '약물 데이터' },
+        '멘토': { icon: '👨‍🏫', desc: '멘토 관련 자료' },
+        '백업': { icon: '💾', desc: '백업 파일들' },
+        '발표자료': { icon: '📊', desc: '발표 자료' },
+        '셈플': { icon: '📂', desc: '샘플 파일들' },
+        '스터디': { icon: '📒', desc: '학습 자료' },
+        'Tech Retrospective': { icon: '📰', desc: '완료된 스프린트 미션들' },
+        '스프린트미션_작업중': { icon: '🚧', desc: '진행 중인 미션들' },
+        '실습': { icon: '🔬', desc: '실습 자료' },
+        '위클리페이퍼': { icon: '📰', desc: '주간 학습 리포트' },
+        '테스트': { icon: '🧪', desc: '테스트 파일들' },
+        '협업일지': { icon: '📓', desc: '협업 일지' },
+        '회의록': { icon: '📋', desc: '팀 회의록' },
+        'AI 모델 환경 설치가이드': { icon: '⚙️', desc: '설치 가이드' },
+        'assets': { icon: '🎨', desc: '정적 자원' },
+        'image': { icon: '🖼️', desc: '이미지 파일들' },
+        'Learning': { icon: '📚', desc: '학습 자료' },
+        'Learning Daily': { icon: '📅', desc: '일일 학습 기록' },
+        'md': { icon: '📝', desc: 'Markdown 문서' }
+    };
+    return folderMappings[folderName] || { icon: '📁', desc: '폴더' };
+}
+
+function getFileInfo(extname) {
+  switch(extname.toLowerCase()) {
+    case '.ipynb':
+      return { icon: '📓', type: 'Colab' };
+    case '.py':
+      return { icon: '🐍', type: 'Python' };
+    case '.md':
+      return { icon: '📝', type: 'Markdown' };
+    case '.json':
+      return { icon: '⚙️', type: 'JSON' };
+    case '.zip':
+      return { icon: '📦', type: '압축' };
+    case '.png':
+    case '.jpg':
+    case '.jpeg':
+      return { icon: '🖼️', type: '이미지' };
+    case '.csv':
+      return { icon: '📊', type: '데이터' };
+    case '.pdf':
+      return { icon: '📄', type: 'PDF' };
+    case '.docx':
+      return { icon: '�', type: 'Word' };
+    case '.pptx':
+      return { icon: '📊', type: 'PowerPoint' };
+    case '.xlsx':
+      return { icon: '📈', type: 'Excel' };
+    case '.hwp':
+      return { icon: '📄', type: 'HWP' };
+    case '.txt':
+      return { icon: '📄', type: 'Text' };
+    case '.html':
+      return { icon: '🌐', type: 'HTML' };
+    default:
+      return { icon: '📄', type: '파일' };
+  }
+}
+
+{% assign cur_dir = "/Tech Retrospective/" %}
+{% include cur_files.liquid %}
+{% include page_values.html %}
+{% include page_files_table.html %}
+
+// DOM이 로드되고 테이블이 렌더링된 후 자동으로 title 컬럼(1번 인덱스) 정렬
+window.addEventListener('load', function() {
+  // 테이블이 완전히 렌더링되기를 잠시 기다림
+  setTimeout(function() {
+    const table = document.querySelector('.file-table');
+    if (table) {
+      // title 컬럼(인덱스 1)을 오름차순으로 정렬
+      sortTable(2, 'Asc'); // 0 날짜 1 제목
+    }
+  }, 100); // 100ms 딜레이로 테이블 렌더링 완료 대기
+});
+
+</script>
 
 <div class="file-grid">
-  <!-- Static files (non-markdown) -->
-  {% assign current_folder = "Tech Retrospective/" %}
-  {% assign static_files = site.static_files | where_exp: "item", "item.path contains current_folder" %}
-  {% assign markdown_pages = site.pages | where_exp: "page", "page.path contains 'Tech Retrospective'" %}
-  
-  {% assign all_files = "" | split: "" %}
-  {% assign all_file_names = "" | split: "" %}
-
-  <!-- Add static files -->
-  {% for file in static_files %}
-    {% unless file.name == "index.md" or all_file_names contains file.name %}
-      {% assign all_files = all_files | push: file %}
-      {% assign all_file_names = all_file_names | push: file.name %}
-    {% endunless %}
-  {% endfor %}
-
-  <!-- Add markdown pages -->
-  {% for page in markdown_pages %}
-    {% unless page.name == "index.md" or all_file_names contains page.name %}
-      {% assign all_files = all_files | push: page %}
-      {% assign all_file_names = all_file_names | push: page.name %}
-    {% endunless %}
-  {% endfor %}
-  
-  <!-- Debug: Show what files are being processed -->
-  <!-- Total files found: {{ all_files.size }} -->
-
-  <!-- 파일을 최근 날짜 순으로 내림차순 정렬 (블로그 포스트의 date front matter 우선, 없으면 modified_time 사용) -->
-  {% assign sorted_files = all_files | sort: "date" | reverse %}
-  {% if sorted_files.size == 0 or sorted_files[0].date == nil %}
-    {% assign sorted_files = all_files | sort: "modified_time" | reverse %}
-  {% endif %}
-
-  {% if sorted_files.size > 0 %}
-    {% for file in sorted_files %}
-      <!-- file {{ file.name }} -->
-      {% assign file_ext = file.extname | downcase %}
-      {% if file_ext == "" and file.path %}
-        {% assign file_name = file.path | split: "/" | last %}
-        {% assign file_ext = file_name | split: "." | last | downcase %}
-        {% assign file_ext = "." | append: file_ext %}
-      {% endif %}
-      
-      <!-- Handle page objects differently from static files -->
-      {% assign is_page = false %}
-      {% if file.url %}
-        {% assign is_page = true %}
-      {% endif %}
-      
-      {% assign file_icon = "📄" %}
-      {% assign file_type = "파일" %}
-      
-      {% if file_ext == ".ipynb" %}
-        {% assign file_icon = "📓" %}
-        {% assign file_type = "Jupyter Notebook" %}
-      {% elsif file_ext == ".py" %}
-        {% assign file_icon = "🐍" %}
-        {% assign file_type = "Python 파일" %}
-      {% elsif file_ext == ".md" %}
-        {% assign file_icon = "📝" %}
-        {% assign file_type = "Markdown 문서" %}
-      {% elsif file_ext == ".json" %}
-        {% assign file_icon = "⚙️" %}
-        {% assign file_type = "JSON 설정" %}
-      {% elsif file_ext == ".zip" %}
-        {% assign file_icon = "📦" %}
-        {% assign file_type = "압축 파일" %}
-      {% elsif file_ext == ".png" or file_ext == ".jpg" or file_ext == ".jpeg" %}
-        {% assign file_icon = "🖼️" %}
-        {% assign file_type = "이미지 파일" %}
-      {% elsif file_ext == ".csv" %}
-        {% assign file_icon = "📊" %}
-        {% assign file_type = "데이터 파일" %}
-      {% endif %}
-      
-      <div class="file-item">
-        <div class="file-icon">{{ file_icon }}</div>
-        <div class="file-info">
-          <h4 class="file-name">
-            {% if is_page %}
-              {% assign display_name = file.name | default: file.path | split: "/" | last %}
-            {% else %}
-              {% assign display_name = file.name | default: file.path | split: "/" | last %}
-            {% endif %}
-            {{ display_name }}
-          </h4>
-          <p class="file-type">{{ file_type }}</p>
-          <p class="file-size">
-            {% if is_page %}
-              {% if file.date %}{{ file.date | date: "%Y-%m-%d" }}{% else %}Page{% endif %}
-            {% else %}
-              {% if file.modified_time %}{{ file.modified_time | date: "%Y-%m-%d" }}{% else %}{{ file.date | date: "%Y-%m-%d" }}{% endif %}
-            {% endif %}
-          </p>
-        </div>
-        <div class="file-actions">
-        <!-- file_ext {{ file_ext }} -->
-        <!-- display_name {{ display_name }} -->
-          {% if file_ext == ".md" and display_name != "index.md" %}
-            {% assign file_name_clean = display_name %}
-            {% assign md_name_clean = file_name_clean | remove: '.md' %}
-            <a href="https://c0z0c.github.io/blog/Tech Retrospective/{{ md_name_clean }}" class="file-action" title="렌더링된 페이지 보기" target="_blank">🌐</a>
-            <a href="https://github.com/c0z0c/blog/blob/master/Tech Retrospective/{{ file_name_clean }}" class="file-action" title="GitHub에서 원본 보기" target="_blank">📖</a>
-          {% elsif file_ext == ".ipynb" %}
-            {% assign file_name_clean = display_name %}
-            <a href="https://github.com/c0z0c/blog/blob/master/Tech Retrospective/{{ file_name_clean }}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>
-            <a href="https://colab.research.google.com/github/c0z0c/blog/blob/master/Tech Retrospective/{{ file_name_clean }}" class="file-action" title="Colab에서 열기" target="_blank">🚀</a>
-          {% elsif file_ext == ".pdf" %}
-            {% assign file_name_clean = display_name %}
-            <a href="https://github.com/c0z0c/blog/blob/master/Tech Retrospective/{{ file_name_clean }}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>
-            <a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/c0z0c/blog/master/Tech Retrospective/{{ file_name_clean }}" class="file-action" title="PDF 뷰어로 열기" target="_blank">📄</a>
-          {% elsif file_ext == ".docx" %}
-            {% assign file_name_clean = display_name %}
-            <a href="https://github.com/c0z0c/blog/blob/master/Tech Retrospective/{{ file_name_clean }}" class="file-action" title="GitHub에서 보기" target="_blank">📖</a>
-            <a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/c0z0c/blog/master/Tech Retrospective/{{ file_name_clean }}" class="file-action" title="Google에서 열기" target="_blank">📊</a>
-          {% elsif file_ext == ".html" %}
-            {% assign file_name_clean = display_name %}
-            <a href="https://c0z0c.github.io/blog/Tech Retrospective/{{ file_name_clean }}" class="file-action" title="웹페이지로 보기" target="_blank">🌐</a>
-            <a href="https://github.com/c0z0c/blog/blob/master/Tech Retrospective/{{ file_name_clean }}" class="file-action" title="GitHub에서 원본 보기" target="_blank">📖</a>
-          {% else %}
-            {% if is_page %}
-              <a href="{{ file.url | relative_url }}" class="file-action" title="페이지 열기">🌐</a>
-            {% else %}
-              <a href="{{ file.path | relative_url }}" class="file-action" title="파일 열기">📖</a>
-            {% endif %}
-          {% endif %}
-        </div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <div class="empty-message">
-      <span class="empty-icon">📄</span>
-      <h3>파일이 없습니다</h3>
-      <p>현재 이 위치에는 완료된 미션 파일이 없습니다.</p>
-    </div>
-  {% endif %}
+  <!-- 파일 목록이 JavaScript로 동적 생성됩니다 -->
 </div>
 
 ---
 
 <div class="navigation-footer">
-  <a href="{{ site.baseurl }}/" class="nav-button home">
+  <a href="{{- site.baseurl -}}/" class="nav-button home">
     <span class="nav-icon">🏠</span> 홈으로
   </a>
+  <a href="https://github.com/c0z0c/blog" target="_blank">
+    <span class="link-icon">📱</span> GitHub 저장소
+  </a>
 </div>
-

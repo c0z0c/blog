@@ -1,110 +1,77 @@
 ---
 layout: default
-title: 개발자 블로그
-description: 기술 블로그와 학습 자료 모음
-date: 2025-08-24
+title: "개발자 블로그"
+description: "개발자 블로그"
 cache-control: no-cache
 expires: 0
 pragma: no-cache
 ---
 
+<script>
+
+// 폴더 정보 가져오기 함수
+function getFolderInfo(folderName) {
+    folderName = (folderName || '').toString().replace(/^\/+|\/+$/g, '');
+    // 폴더명에 따른 아이콘과 설명 (중복 정리됨)
+    const folderMappings = {
+        '감성데이타': { icon: '📊', desc: 'AI HUB 감성 데이타셋' },
+        '경구약제 이미지 데이터(데이터 설명서, 경구약제 리스트)': { icon: '📊', desc: '데이터 설명서' },
+        '경구약제이미지데이터': { icon: '💊', desc: '약물 데이터' },
+        '멘토': { icon: '👨‍🏫', desc: '멘토 관련 자료' },
+        '백업': { icon: '💾', desc: '백업 파일들' },
+        '발표자료': { icon: '📊', desc: '발표 자료' },
+        '셈플': { icon: '📂', desc: '샘플 파일들' },
+        '스터디': { icon: '📒', desc: '학습 자료' },
+        '스프린트미션_완료': { icon: '✅', desc: '완료된 스프린트 미션들' },
+        '스프린트미션_작업중': { icon: '🚧', desc: '진행 중인 미션들' },
+        '실습': { icon: '🔬', desc: '실습 자료' },
+        '위클리페이퍼': { icon: '📰', desc: '주간 학습 리포트' },
+        '테스트': { icon: '🧪', desc: '테스트 파일들' },
+        '협업일지': { icon: '📓', desc: '협업 일지' },
+        '회의록': { icon: '📋', desc: '팀 회의록' },
+        'AI 모델 환경 설치가이드': { icon: '⚙️', desc: '설치 가이드' },
+        'assets': { icon: '🎨', desc: '정적 자원' },
+        'image': { icon: '🖼️', desc: '이미지 파일들' },
+        'Learning': { icon: '📚', desc: '학습 자료' },
+        'Learning Daily': { icon: '📅', desc: '일일 학습 기록' },
+        'md': { icon: '📝', desc: 'Markdown 문서' }
+    };
+
+    return folderMappings[folderName] || { icon: '📁', desc: '폴더' };
+}
+
+{% assign cur_dir = "/" %}
+{% include cur_files.liquid %}
+{% include page_values.html %}
+{% include page_folders_tree.html %}
+
+</script>
+
 # 📚 개발자 블로그
 
-{% assign folder_set = "" | split: "" %}
-{% for file in site.static_files %}
-  {% assign path_parts = file.path | split: '/' %}
-  {% if path_parts.size > 1 %}
-    {% assign folder = path_parts[0] %}
-    {% unless folder_set contains folder or folder == '' or folder contains '.' %}
-      {% assign folder_set = folder_set | push: folder %}
-    {% endunless %}
-  {% endif %}
-{% endfor %}
-{% for page in site.pages %}
-  {% assign path_parts = page.path | split: '/' %}
-  {% if path_parts.size > 1 %}
-    {% assign folder = path_parts[0] %}
-    {% unless folder_set contains folder or folder == '' or folder contains '.' %}
-      {% assign folder_set = folder_set | push: folder %}
-    {% endunless %}
-  {% endif %}
-{% endfor %}
-<!-- 디버깅: 추출된 폴더 목록 -->
-<!-- {{ folder_set | join: ', ' }} -->
+## 📁 폴더별 탐색
 
-<div class="nav-sections">
-  <div class="section-card">
-    <h2>📂 카테고리</h2>
-    <div class="folder-links">
-      {% assign folder_set = "" | split: "" %}
-      {% for file in site.static_files %}
-        {% assign path_parts = file.path | split: '/' %}
-        {% if path_parts.size > 1 %}
-          {% assign folder = path_parts[0] %}
-          {% unless folder_set contains folder or folder == '' or folder contains '.' or folder == 'assets' %}
-            <a href="{{ site.baseurl }}/{{ folder }}/" class="folder-link">
-              <span class="folder-icon">📁</span>
-              <span class="folder-name">{{ folder }}</span>
-            </a>
-            {% assign folder_set = folder_set | push: folder %}
-          {% endunless %}
-        {% endif %}
-      {% endfor %}
-      {% for page in site.pages %}
-        {% assign path_parts = page.path | split: '/' %}
-        {% if path_parts.size > 1 %}
-          {% assign folder = path_parts[0] %}
-          {% unless folder_set contains folder or folder == '' or folder contains '.' or folder == 'assets' %}
-            <a href="{{ site.baseurl }}/{{ folder }}/" class="folder-link">
-              <span class="folder-icon">📁</span>
-              <span class="folder-name">{{ folder }}</span>
-            </a>
-            {% assign folder_set = folder_set | push: folder %}
-          {% endunless %}
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="section-card">
-    <h2>🔗 빠른 링크</h2>
-    <div class="quick-links">
-      <a href="https://c0z0c.github.io/" target="_blank">
-        <span class="link-icon">🏠</span> 메인
-      </a>
-      <a href="https://github.com/c0z0c/blog" target="_blank">
-        <span class="link-icon">📱</span> GitHub 프로필
-      </a>
-    </div>
-  </div>
+<div class="folder-grid">
+  <!-- 폴더 목록이 JavaScript로 동적 생성됩니다 -->
 </div>
 
-## �📋 최근 업데이트
-
-{% assign all_posts = site.pages %}
-{% assign filtered_posts = "" | split: "" %}
-{% for page in all_posts %}
-  {% if page.category and page.title != page.category %}
-    {% assign filtered_posts = filtered_posts | push: page %}
-  {% endif %}
-{% endfor %}
-{% assign sorted_posts = filtered_posts | sort: "date" | reverse %}
-
-<div class="recent-posts">
-  {% for post in sorted_posts limit: 5 %}
-    <div class="recent-post-item">
-      <span class="post-date">{{ post.date | date: "%Y년 %m월 %d일" | default: "최근" }}</span>
-      <a href="{{ post.url | prepend: site.baseurl }}" class="post-title">{{ post.title }}</a>
-      <span class="post-category">{{ post.category }}</span>
-    </div>
-  {% endfor %}
+{::nomarkdown}
+<div class="section-card">
+  <h2>🔗 빠른 링크</h2>
+  <div class="quick-links">
+    <a href="https://c0z0c.github.io/" target="_blank">
+      <span class="link-icon">🌐</span> 메인
+    </a>
+    <a href="https://github.com/c0z0c/blog" target="_blank">
+      <span class="link-icon">📱</span> GitHub 저장소
+    </a>
+  </div>
 </div>
-
----
+{:/nomarkdown}
 
 <div class="footer-info">
 <small>
-<strong>개발자 블로그</strong> | <a href="https://c0z0c.github.io/" target="_blank" style="color: #87ceeb;">🌐 메인</a><br>
+<strong>AI/SW 엔지니어</strong> | 김명환<br>
 마지막 업데이트: {{ site.time | date: "%Y년 %m월 %d일" }}
 </small>
 </div>

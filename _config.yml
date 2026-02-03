@@ -1,0 +1,48 @@
+# Jekyll 설정
+title: "개발자 블로그"
+description: "기술 블로그와 학습 자료 모음"
+url: "https://c0z0c.github.io"
+baseurl: "/blog"
+
+# Build 설정
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# kramdown 설정
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+
+# 제외할 파일들
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - ".git"
+  - ".gitignore"
+  - "setup_blog.py"
+
+# 기본 레이아웃 설정
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+      
+# 한국어 설정
+lang: ko
+timezone: Asia/Seoul
+
+# 인코딩 설정
+encoding: utf-8

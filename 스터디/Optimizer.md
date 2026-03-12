@@ -700,14 +700,14 @@ $$\eta_{\text{new}} = \eta_{\text{base}} \times \sqrt{\frac{B_{\text{new}}}{B_{\
 - 매우 큰 모델에 적합
 
 **Lion (Evolved Sign Momentum):**
-- 2023년 Google이 제안
+- 2022년 Google이 제안
 - Adam보다 메모리 효율적
 - 큰 모델에서 경쟁력 있는 성능
 
 **Sophia (Second-order Clipped Stochastic Optimization):**
 - 2차 정보를 효율적으로 활용
 - LLM 학습에서 AdamW보다 2배 빠름
-- 2023년 Stanford 연구
+- 2022년 Stanford 연구
 
 #### 6.5.2. 도메인 특화 옵티마이저
 

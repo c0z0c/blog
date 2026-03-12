@@ -93,7 +93,7 @@ author: "김명환"
 
 ### 1.2. 기존 google-generativeai와의 차이점
 
-구글은 2023년부터 `google-generativeai` 라이브러리를 제공했으나, 2024년 후반 `google-genai`를 새롭게 출시하며 아키텍처를 대폭 개선했다.
+구글은 2022년부터 `google-generativeai` 라이브러리를 제공했으나, 2024년 후반 `google-genai`를 새롭게 출시하며 아키텍처를 대폭 개선했다.
 
 **주요 차이점:**
 

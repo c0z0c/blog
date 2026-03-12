@@ -122,9 +122,9 @@ flowchart TD
     E --> F[AI와 반복 개선]
     F --> C
     
-    style A fill:#87ceeb,stroke:#333,stroke-width:2px,color:#000
-    style D fill:#4caf50,stroke:#333,stroke-width:2px,color:#000
-    style C fill:#ff9800,stroke:#333,stroke-width:2px,color:#000
+    style A stroke-width:2px,stroke:#87ceeb,stroke:#333,stroke-width:2px,color:#000
+    style D stroke-width:2px,stroke:#4caf50,stroke:#333,stroke-width:2px,color:#000
+    style C stroke-width:2px,stroke:#ff9800,stroke:#333,stroke-width:2px,color:#000
 ```
 
 ## 3. AI 한계 인식 및 개입 시점 판단
@@ -235,9 +235,9 @@ flowchart LR
     D --> E[테스트 및 디버깅<br/>개발자 주도]
     E --> F[최종 최적화<br/>개발자]
     
-    style A fill:#87ceeb,stroke:#333,stroke-width:2px,color:#000
-    style C fill:#ff9800,stroke:#333,stroke-width:2px,color:#000
-    style F fill:#4caf50,stroke:#333,stroke-width:2px,color:#000
+    style A stroke-width:2px,stroke:#87ceeb,stroke:#333,stroke-width:2px,color:#000
+    style C stroke-width:2px,stroke:#ff9800,stroke:#333,stroke-width:2px,color:#000
+    style F stroke-width:2px,stroke:#4caf50,stroke:#333,stroke-width:2px,color:#000
 ```
 
 #### 실제 협업 사례

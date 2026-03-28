@@ -202,8 +202,8 @@ $$
 여기서:
 - $x$: 입력 쿼리 (query)
 - $z$: 검색된 문서 (retrieved document)
-- $p_\eta(z | x)$: 검색기(retriever)가 쿼리 $x$에 대해 문서 $z$를 반환할 확률
-- $p_\theta(y | x, z)$: 생성기(generator)가 쿼리와 문서를 보고 답 $y$를 생성할 확률
+- $p_\eta(z \mid x)$: 검색기(retriever)가 쿼리 $x$에 대해 문서 $z$를 반환할 확률
+- $p_\theta(y \mid x, z)$: 생성기(generator)가 쿼리와 문서를 보고 답 $y$를 생성할 확률
 
 RAG는 두 가지 변형이 있다:
 

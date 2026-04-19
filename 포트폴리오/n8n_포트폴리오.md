@@ -6,6 +6,12 @@
 
 단순한 봇 연동을 넘어서, self-hosted `n8n` 환경과 외부 webhook 수신 구조, 데이터 중심 운영 설계, 예외 처리 흐름까지 포함한 실운영형 자동화 시스템으로 설계했다.
 
+## 데모 영상
+
+- 데모 영상: [https://youtu.be/eV88hV7wLAg](https://youtu.be/eV88hV7wLAg)
+
+[![n8n 포트폴리오 데모 영상 미리보기](https://img.youtube.com/vi/eV88hV7wLAg/hqdefault.jpg)](https://youtu.be/eV88hV7wLAg)
+
 이 프로젝트의 목표는 다음과 같았다.
 
 - 반복적인 근태 입력 과정을 메신저 명령어 기반으로 단순화

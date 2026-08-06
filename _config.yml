@@ -24,6 +24,7 @@ kramdown:
 
 # 제외할 파일들
 exclude:
+  - 포트폴리오/
   - README.md
   - Gemfile
   - Gemfile.lock

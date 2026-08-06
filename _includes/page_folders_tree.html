@@ -1,3 +1,10 @@
+{%- comment -%} ignore_dir는 "폴더A,폴더B" 형태의 콤마 구분 문자열. 정의되지 않은 페이지(index.md)도 있으므로 없으면 빈 배열로 처리한다 {%- endcomment -%}
+{%- if ignore_dir -%}
+  {%- assign ignore_dir_list = ignore_dir | split: "," -%}
+{%- else -%}
+  {%- assign ignore_dir_list = "" | split: "" -%}
+{%- endif -%}
+var ignoreDirs = {{ ignore_dir_list | jsonify }};
 
   // 하위 폴더 목록 파싱 함수
   function getSubDirectories(files, pages, currentDir) {
@@ -63,8 +70,13 @@
       }
     });
     
-    const result = Array.from(subDirs).sort();
-    
+    const result = Array.from(subDirs)
+      .filter(folderPath => {
+        const folderName = folderPath.split('/').filter(s => s).pop();
+        return !ignoreDirs.includes(folderName);
+      })
+      .sort();
+
     return result;
   }
 

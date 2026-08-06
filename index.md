@@ -47,6 +47,9 @@ function getFolderInfo(folderName) {
     return folderMappings[folderName] || { icon: '📁', desc: '폴더' };
 }
 
+{%- comment -%} 트리에서 제외할 폴더명 목록 (쉼표로 구분해서 추가) {%- endcomment -%}
+{% assign ignore_dir = "포트폴리오,시험중" %}
+
 {% assign cur_dir = "/" %}
 {% include cur_files.liquid %}
 {% include page_values.html %}
